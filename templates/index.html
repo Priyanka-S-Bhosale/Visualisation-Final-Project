@@ -11,21 +11,285 @@
     <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="/static/js/map.js"></script>
+    <script src="/static/js/PCP.js"></script>
+    <script src="/static/js/Bar_Chart.js"></script>
 
     <script>
-        function load() {
+
+        function draw_geo_map() {
+            var year = "2019";
+            var crime = "Total-Murder";
             $.ajax({
-                url: "",
+                url: "load_us_map",
                 type: "POST",
                 contentType: "application/json",
+                data: JSON.stringify({
+                    "Year" : year,
+                    "Crime": crime
+                })
+            }).done(function (data) {
+                USMap(data);
+            });
 
+        }
+
+        function draw_pcp() {
+            var State = "California";
+            $.ajax({
+                url: "parallel_coordinates_plot",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "State" : State
+                })
+            }).done(function (data) {
+                console.log(data);
+                Parallel_Coordinates_Plot(data);
             });
         }
+
+        function draw_bar_chart() {
+            //state
+            //crime
+            var State = "California";
+            var crime = "Total-Murder";
+
+            $.ajax({
+                url: "bar_chart",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    "State" : State,
+                    "Crime": crime
+                })
+            }).done(function (data) {
+                Bar_Chart(data);
+            });
+
+        }
+
     </script>
+
+     <style>
+        #menu-bar {
+            list-style-type: none;
+            margin: 0;
+            margin-bottom: 20px;
+            padding: 0;
+            overflow: hidden;
+            background-color: rgb(114, 12, 209);
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        li {
+            float: left;
+        }
+
+        #rotateSVG {
+            float: left;
+            margin: 20px;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 8px 10px;
+            text-decoration: none;
+            font-family: sans-serif;
+        }
+
+        li a:hover {
+            background-color: rgb(62, 7, 83);
+        }
+
+        h2 {
+            color:rgb(114, 12, 209);
+            font-family: sans-serif;
+            padding: 3px 6px;
+            text-align: center;
+        }
+
+        h3 {
+            color:rgb(114, 12, 209);
+            font-family: sans-serif;
+            padding: 3px 6px;
+        }
+
+        h5 {
+            color:rgb(114, 12, 209);
+            font-family: sans-serif;
+            padding: 3px 5px;
+            text-align: center;
+        }
+
+        h4 {
+            color:rgb(114, 12, 209);
+            font-family: sans-serif;
+        }
+
+        #mysvg-2 {
+            margin-top: 100px;
+        }
+
+        label {
+            font-family: sans-serif;
+        }
+
+        p {
+            font-family: sans-serif;
+        }
+
+        #submit-Button{
+            background-color: rgb(114, 12, 209); /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            background-color: white;
+            color: black;
+            border: 2px solid #008CBA;
+        }
+
+        .label {
+            font-size: 13px;
+        }
+
+        .x_axis_radio_btn{
+            margin-top: 20px;
+            text-align: left;
+            float: left;
+        }
+
+        .y_axis_radio_btn{
+            float: left;
+        }
+
+        .switch {
+            width: 60px;
+            height: 34px;
+            position: absolute;
+            cursor: pointer;
+            top: 180px;
+            right: 20px;
+            -webkit-transition: .4s;
+            transition: .4s;
+            display: inline-block;
+        }
+
+        .switch-header {
+            width: 60px;
+            height: 34px;
+            position: absolute;
+            cursor: pointer;
+            top: 100px;
+            right: 20px;
+            display: inline-block;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked + .slider {
+            background-color: #2196F3;
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+        svg {
+        font: 10px sans-serif;
+    }
+
+        .background path {
+            fill: none;
+            /* stroke: #5c6263; */
+            stroke: #ddd;
+            /* shape-rendering: crispEdges; */
+        }
+
+        .foreground path {
+            fill: none;
+            stroke: steelblue;
+        }
+
+        .brush .extent {
+            fill-opacity: .3;
+            stroke: #fff;
+            shape-rendering: crispEdges;
+        }
+
+        .axis line,
+        .axis path {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .axis text {
+            text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff;
+            cursor: move;
+            fill: #000;
+        }
+
+    </style>
 
 </head>
 
 <body>
+    <button onclick="draw_geo_map()"> Draw US Map </button>
+    <button onclick="draw_pcp()"> Parallel Co-ordinates Plot </button>
+    <button onclick="draw_bar_chart()"> Bar Chart </button>
+
+    <svg id="mysvg" width="1500" height="500"></svg>
+    <svg id="svg_id" width="1300" height="1000"></svg>
+    <div id="plot_graph">
+    </div>
 
 </body>
 
