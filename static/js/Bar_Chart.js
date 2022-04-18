@@ -1,7 +1,5 @@
 function Bar_Chart(data) {
 
-    //parse the JSON
-
     var myData = JSON.parse(data);
     console.log(myData);
     var name = 0;
