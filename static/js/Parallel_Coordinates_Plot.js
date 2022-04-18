@@ -3,7 +3,7 @@ function Parallel_Coordinates_Plot(data) {
     // PCP Implementation.
     var pcp_data = JSON.parse(data);
 
-    document.getElementById("svg_id").innerHTML = "";
+    document.getElementById("pcp-chart").innerHTML = "";
 
     console.log(pcp_data);
     console.log(pcp_data.length);
@@ -19,12 +19,12 @@ function Parallel_Coordinates_Plot(data) {
 
     var f=0;
 
-    var margin = {top: 100, right: 100, bottom: 100, left: 100},
-        width = 1000 - margin.left - margin.right,
-        height = 700 - margin.top - margin.bottom;
+    var margin = {top: 20, right: 100, bottom: 20, left: 100},
+        width = 800 - margin.left - margin.right,
+        height = 400 - margin.top - margin.bottom;
 
     //append the svg object to the body of the page
-    var svg = d3.select("svg")
+    var svg = d3.select("#pcp-chart")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)

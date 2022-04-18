@@ -1,4 +1,12 @@
+$(function () {
+    console.log(" Dashboard LOADING.... ");
+    draw_geo_map();
+    draw_pcp();
+    draw_bar_chart();
+});
+
 function draw_geo_map() {
+
     var year = "2019";
     var crime = "Total-Murder";
     $.ajax({
