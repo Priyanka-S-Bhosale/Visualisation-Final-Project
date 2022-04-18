@@ -22,17 +22,20 @@ function Bar_Chart(data) {
     console.log(dataNameList);
     console.log(dataValArray);
 
-    var svg = d3.select("#mysvg"),
-        margin = 200,
-        width = svg.attr("width") - margin,
-        height = svg.attr("height") - margin;
+    var height = 400;
+    var width = 800;
+
+    var svg = d3.select("#bar-chart")
+        .append("svg")
+        .attr("id","bar_graph")
+        .attr("width", width)
+        .attr("height", height)
 
     var x = d3.scaleBand().range([0, width]).padding(0.5);
     var y = d3.scaleLinear().range([height, 0]);
 
     var g = svg.append("g")
         .attr("transform", "translate(" + 100 + "," + 100 + ")");
-
 
     x.domain(dataNameList);
     y.domain([0, d3.max(dataValArray)]);
@@ -42,8 +45,8 @@ function Bar_Chart(data) {
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x))
         .append("text")
-        .attr("y", height - 250)
-        .attr("x", width/2)
+        .attr("y", height - 100)
+        .attr("x", width)
         .attr("text-anchor", "middle")
         .attr("fill", "purple")
         .attr("font-family", "sans-serif")
@@ -74,7 +77,7 @@ function Bar_Chart(data) {
         .attr("class", "bar")
         .attr("fill", "purple")
         .attr("x", function(d) { return x(d); })
-        .attr("y", height)
+        .attr("y", height - 100)
         .attr("height", 0)
         .attr("width", x.bandwidth())
         .transition()

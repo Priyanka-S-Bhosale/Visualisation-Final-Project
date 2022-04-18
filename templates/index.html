@@ -11,8 +11,8 @@
 
     <!-- Javascript Files -->
     <script src="https://d3js.org/d3.v4.min.js" charset="utf-8"></script>
+    <script src="/static/js/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="/static/js/Choropleth_Map.js"></script>
     <script src="/static/js/Parallel_Coordinates_Plot.js"></script>
     <script src="/static/js/Bar_Chart.js"></script>
@@ -31,96 +31,94 @@
 
     <div class="container-fluid">
 
-    <div class="row">
-
-      <div class="col-sm-6">
         <div class="row">
 
-          <!-- Line Graph -->
-          <div class="col-sm-6">
-            <div class="chart-wrapper">
-              <div class="chart-title">
-                Line Graph
-              </div>
-              <div class="chart-stage">
-                <div id="line-chart"></div>
-              </div>
-            </div>
-          </div>
-          <!-- Line Graph -->
+            <div class="col-lg-6">
 
-          <!-- Pie Chart -->
-          <div class="col-sm-6">
-            <div class="chart-wrapper">
-              <div class="chart-title">
-                Pie Chart
-              </div>
-              <div class="chart-stage">
-                <div id="pie-chart"></div>
-              </div>
-            </div>
-          </div>
-          <!-- Pie Chart -->
+                <div class="col-lg-3">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            Line Graph
+                        </div>
+                        <div class="chart-stage">
+                            <div id="line-chart"></div>
+                        </div>
+                    </div>
+                </div>
 
-          <!-- Bar Graph -->
-          <div class="col-sm-6">
-            <div class="chart-wrapper">
-              <div class="chart-title">
-                Bar Graph
-              </div>
-              <div class="chart-stage">
-                <div id="bar-chart"></div>
-              </div>
-            </div>
-          </div>
-          <!-- Bar Graph -->
+                <div class="col-lg-6">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            Pie Chart
+                        </div>
+                        <div class="chart-stage">
+                            <div id="pie-chart"></div>
+                        </div>
+                    </div>
+                </div>
 
-          <!-- Radar Chart -->
-          <div class="col-sm-6">
-            <div class="chart-wrapper">
-              <div class="chart-title">
-                Radar Chart
-              </div>
-              <div class="chart-stage">
-                <div id="radar-chart"></div>
-              </div>
             </div>
-          </div>
-          <!-- Radar Chart -->
+
+            <div class="col-lg-6">
+                <div class="chart-wrapper">
+                    <div class="chart-title">
+                        Choropleth Map
+                    </div>
+                    <div class="chart-stage">
+                        <div id="us-chart"></div>
+                    </div>
+                </div>
+            </div>
 
         </div>
 
-      </div>
 
-      <!-- Map -->
-      <div class="col-sm-6">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Choropleth Map
-          </div>
-          <div class="chart-stage">
-            <div id="us-chart"></div>
-          </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="col-lg-3">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            Bar Graph
+                        </div>
+                        <div class="chart-stage">
+                            <div id="bar-chart">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3">
+                    <div class="chart-wrapper">
+                        <div class="chart-title">
+                            Radar Chart
+                        </div>
+                        <div class="chart-stage">
+                            <div id="radar-chart"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="chart-wrapper">
+                    <div class="chart-title">
+                        Parallel Co-ordinates Plot
+                    </div>
+                    <div class="chart-stage">
+                        <div id="pcp-chart"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-      </div>
-      <!-- Map -->
-
-      <!-- Parallel Co-ordinates Plot -->
-      <div class="col-sm-6">
-        <div class="chart-wrapper">
-          <div class="chart-title">
-            Parallel Co-ordinates Plot
-          </div>
-          <div class="chart-stage">
-            <div id="pcp-chart"></div>
-          </div>
-        </div>
-      </div>
-      <!-- Parallel Co-ordinates Plot -->
-
     </div>
 
-  </div>
+</div>
+
+</div>
+
+</div>
 
 </div>
 

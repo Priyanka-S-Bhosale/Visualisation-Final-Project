@@ -8,29 +8,35 @@ function USMap(data) {
     var state = data['State'];
     var value = data[Object.keys(data)[1]];
 
-    var height = 300;
-    var width = 600;
+    console.log(state);
+    console.log(value);
+
+    var height = screen.height/2;
+    var width = screen.width/2;
+
+    console.log(screen.width);
+    console.log(screen.height);
 
     var lowColor = '#f2f7f7';
     var highColor = '#057a7a';
 
     // Projection
     var projection = d3.geoAlbersUsa()
-                         .translate([width / 2, height / 2])
-                         .scale([500]);
+        .translate([width/2, height/2])
+        .scale([500]);
 
     // Define path generator
     var path = d3.geoPath() //
-                 .projection(projection);
+        .projection(projection);
 
     //Create SVG element and append map to the SVG
-    var svg = d3.select("body")
-                .append("svg").attr("id","my_map_svg")
-                .attr("width", width)
-                .attr("height", height)
-                .append("g")
-                .attr("transform","translate(" + 10 + "," + 0 + ")");
-
+    var svg = d3.select("#us-chart")
+        .append("svg")
+        .attr("id","my_map_svg")
+        .attr("width",700)
+        .attr("height",400)
+        .append("g")
+        .attr("transform","translate(" + 10 + "," + 0 + ")");
 
     svg.append("text")
         .attr("x", -40+ (width / 2))
@@ -39,10 +45,10 @@ function USMap(data) {
         .attr("font-family", "myriad pro")
         .style("font-size", "16px")
         .style("font-weight", "bold")
-        .text("Murder Crimes in Year 2019 in U.S.")
+        .text("Crimes in Year 2019 in U.S.")
         .style("z-index",10);
 
-    $("#my_map_svg").css({top:100,left:720, position:"absolute"});
+    $("#my_map_svg").css({top:20,left:20,right:20,bottom:20});
 
     var values = Object.keys(value).map(function(key) {
         return value[key];
@@ -72,7 +78,7 @@ function USMap(data) {
             }
         }
 
-        var div = d3.select("body").append("div")
+        var div = d3.select("#my_map_svg").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
 
@@ -102,11 +108,14 @@ function USMap(data) {
                 div.transition()
                     .duration(500)
                     .style("opacity", 0);
+
+                // Multiple Functionalities on-click Implementation
+
             });
 
         var w = 50, h = 180;
 
-        var key = d3.select("body")
+        var key = d3.select("#us-chart")
             .append("svg").attr("id","my_map_svg")
             .attr("width", w)
             .attr("height", h)
