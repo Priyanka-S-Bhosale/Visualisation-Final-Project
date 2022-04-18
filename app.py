@@ -8,6 +8,7 @@ from sklearn.preprocessing import StandardScaler
 app = Flask(__name__)
 
 df = pd.read_csv('data/project_dataset.csv')
+
 rate_filter = ['State', 'Year', 'Population', 'Rates-Burglary', 'Rates-Larceny', 'Rates-Motor', 'Rates-Assault',
                'Rates-Murder',
                'Rates-Rape', 'Rates-Robbery']
@@ -90,6 +91,11 @@ def load_bar_chart():
 
 @app.route('/pie_chart', methods=["POST"])
 def load_pie_chart():
+    return "data"
+
+
+@app.route('/radar_chart', methods=["POST"])
+def load_radar_chart():
     return "data"
 
 
