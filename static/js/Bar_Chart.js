@@ -22,8 +22,8 @@ function Bar_Chart(data) {
     console.log(dataNameList);
     console.log(dataValArray);
 
-    var height = 400;
-    var width = 800;
+    var height = screen.height/4;
+    var width = screen.width/4;
 
     var svg = d3.select("#bar-chart")
         .append("svg")
@@ -31,37 +31,23 @@ function Bar_Chart(data) {
         .attr("width", width)
         .attr("height", height)
 
-    var x = d3.scaleBand().range([0, width]).padding(0.5);
-    var y = d3.scaleLinear().range([height, 0]);
-
     var g = svg.append("g")
-        .attr("transform", "translate(" + 100 + "," + 100 + ")");
+        .attr("transform", "translate(" + -100 + "," + -100 + ")");
 
-    x.domain(dataNameList);
-    y.domain([0, d3.max(dataValArray)]);
+    var x = d3.scaleBand().domain(dataNameList).range([height, 0]).padding(0.5);
+    var y = d3.scaleLinear().domain([0, d3.max(dataValArray)]).range([0, width]);
 
-
-    g.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x))
-        .append("text")
-        .attr("y", height - 100)
-        .attr("x", width)
-        .attr("text-anchor", "middle")
-        .attr("fill", "purple")
-        .attr("font-family", "sans-serif")
-        .attr("font-size", "20px")
-        .text("label")
+    var xAxis = d3.axisBottom(y);
+    var yAxis = d3.axisLeft(x);
 
     g.append("g")
-        .call(d3.axisLeft(y).tickFormat(function(d){
-            return  d;
-        }).ticks(10))
+        .attr("transform", "translate(100," + height + ")")
+        .call(xAxis.tickFormat(function(d) {
+            return d;
+        }).ticks(15))
         .append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 50)
-        .attr("x", -140)
-        .attr("dy", "-5.1em")
+        .attr("y", height - 250)
+        .attr("x", width / 2)
         .attr("text-anchor", "middle")
         .attr("fill", "purple")
         .attr("font-family", "sans-serif")
@@ -69,25 +55,37 @@ function Bar_Chart(data) {
         .text("Count");
 
     g.append("g")
-        .call(d3.axisLeft(y).tickFormat("").ticks(10).tickSizeInner(-width)).attr("class", "grid");
+        .attr("transform", "translate(100,0)")
+        .call(yAxis)
+        .append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0)
+        .attr("x", -140)
+        .attr("dy", "-5.1em")
+        .attr("text-anchor", "middle")
+        .attr("fill", "purple")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "20px")
+        .text("US Data Statistics");
+
+    g.append("g").attr("transform", "translate(100," + height + ")")
+        .call(d3.axisBottom(y).tickFormat("").ticks(15).tickSizeInner(-height)).attr("class", "grid");
 
     g.selectAll(".bar")
         .data(dataNameList)
         .enter().append("rect")
         .attr("class", "bar")
-        .attr("fill", "purple")
-        .attr("x", function(d) { return x(d); })
-        .attr("y", height - 100)
-        .attr("height", 0)
-        .attr("width", x.bandwidth())
+        .attr("fill", "#b5e7a0")
+        .attr("y", function(d) { return x(d); })
+        .attr("x", 100)
+        .attr("height", x.bandwidth())
+        .attr("width", 0 )
         .transition()
         .ease(d3.easeLinear)
         .duration(400)
         .delay(function (d, i) {
             return i * 50;
         })
-        .attr("y", function(d, i) { return y(dataValArray[i]); })
-        .attr("height", function(d, i) { return height - y(dataValArray[i]); })
-
+        .attr("width", function(d, i) { return y(dataValArray[i]); });
 
 }

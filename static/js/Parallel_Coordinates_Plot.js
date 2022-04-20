@@ -14,7 +14,7 @@ function Parallel_Coordinates_Plot(data) {
     console.log(dimensions);
 
     var klabel = pcp_data[2];
-    var color_label = ['orange','red','blue'];
+    var color_label = ['#b5e7a0','#d5e1df','#86af49'];
     console.log(klabel);
 
     var f=0;

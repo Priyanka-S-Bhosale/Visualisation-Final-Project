@@ -2,6 +2,7 @@
 The input I get to plot Map: Year and Crime !
  */
 function USMap(data) {
+
     console.log(data);
 
     var data = JSON.parse(data);
@@ -18,11 +19,11 @@ function USMap(data) {
     console.log(screen.height);
 
     var lowColor = '#f2f7f7';
-    var highColor = '#057a7a';
+    var highColor = '#b5e7a0';
 
     // Projection
     var projection = d3.geoAlbersUsa()
-        .translate([width/2, height/2])
+        .translate([width/2, height/3])
         .scale([500]);
 
     // Define path generator
@@ -33,8 +34,8 @@ function USMap(data) {
     var svg = d3.select("#us-chart")
         .append("svg")
         .attr("id","my_map_svg")
-        .attr("width",700)
-        .attr("height",400)
+        .attr("width",width/1.5)
+        .attr("height",height/1.5)
         .append("g")
         .attr("transform","translate(" + 10 + "," + 0 + ")");
 
@@ -78,7 +79,7 @@ function USMap(data) {
             }
         }
 
-        var div = d3.select("#my_map_svg").append("div")
+        var div = d3.select("#us-chart").append("div")
             .attr("class", "tooltip")
             .style("opacity", 0);
 
@@ -121,7 +122,7 @@ function USMap(data) {
             .attr("height", h)
             .attr("class", "legend")
             .attr("transform",
-                "translate(" + 780 + "," + 100 + ")");
+                "translate(" + -600 + "," + -80 + ")");
 
         var legend = key.append("defs")
             .append("svg:linearGradient")
