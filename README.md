@@ -1,5 +1,5 @@
 # Visualisation-Final-Project
-Academic Project for CSE-546
+Academic Project for CSE-564
 
 
 Team Members:
